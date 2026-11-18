@@ -1,0 +1,35 @@
+# Development roadmap
+
+**Active stage: 0.** The following stages are a plan, not completed work. Each program's purpose, connections, and important parts will be explained before implementation.
+
+| Stage | Work | Evidence needed to move forward | Status |
+| --- | --- | --- | --- |
+| 0 — Preparation | Review tools, identify the board, and organize the repository. | IDE opens, core is confirmed, and board is detected over USB. | In progress. |
+| 1 — Sensor and ESP32 | Review pins and voltage divider; display distances in the serial monitor. | Repeated readings at reference distances, with failures recorded. | Pending. |
+| 2 — Volume | Select a container, calibrate empty/full distances, validate, filter, and convert to liters. | Comparison with known quantities, with geometry and error documented. | Pending. |
+| 3 — Connection | Connect to Wi-Fi and recover from disconnections. | Test with network loss and recovery. | Pending. |
+| 4 — Cloud | Select storage, authorize uploads, and preserve history. | Actual records and handling of communication errors. | Pending. |
+| 5 — Dashboard | Display indicators, history, latest measurement, and alerts. | Interface using actual data, including handling of stale or missing data. | Pending. |
+| 6 — Testing | Test the complete system, fix issues, and prepare the presentation. | Reproducible procedure and results with known limitations. | Pending. |
+
+## Calculation topics reserved for Stage 2
+
+- Convert echo time into distance, explaining units and the round trip.
+- Calibrate the empty and full distances; validate calibration and clamp the percentage to 0–100%.
+- Distinguish height percentage from volume percentage when required by the geometry.
+- Validate readings before filtering; compare mean and median using observed data.
+- Test the calculation with known volumes and record its errors.
+
+## Suggested commits
+
+Each commit should represent a small change that the student has reviewed. Suggested messages and exact terminal commands will be provided when a change is ready. For this initial documentation:
+
+```text
+docs: initialize project structure and English documentation
+```
+
+See [the setup guide](setup.md#3-review-the-repository-files) for the first commit's review, staging, commit, and push commands.
+
+## Improvements after completing the original scope
+
+We will first evaluate which actual problem warrants an improvement. Possible extensions include estimating consumption, predicting when water will run out, and detecting unusual behavior. The choice will depend on available data and remaining time; AI is not being added yet.

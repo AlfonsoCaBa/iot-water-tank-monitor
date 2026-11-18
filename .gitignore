@@ -1,0 +1,27 @@
+# Local credentials. Examples without secrets can be tracked.
+.env
+.env.*
+!.env.example
+secrets.h
+secrets.local.h
+!secrets.example.h
+
+# Generated firmware build files.
+build/
+.pio/
+*.elf
+*.bin
+*.hex
+*.map
+*.o
+
+# Web dependencies and build output, if added later.
+node_modules/
+dist/
+
+# Temporary system and editor files.
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.swp
+*.tmp
