@@ -57,7 +57,7 @@ On a typical breadboard, a numbered row contains two separate groups of five con
 
 ## Verify the board supply with a multimeter
 
-**Status: procedure prepared; no voltage reading has been reported.** This checks only the USB-powered board, not the sensor circuit under load.
+**Status: user reported 5.17 V after following the board-supply measurement procedure.** The exact pin label was not included in the report and still needs to be recorded. This checks only the USB-powered board, not the sensor circuit under load. The assistant did not independently measure the voltage.
 
 1. With USB disconnected, take a clear photograph of the current assembly for review. Temporarily disconnect the ESP32's jumper connections to the sensor and divider, leaving that circuit unpowered. Keep sensor VCC disconnected.
 2. Connect the black meter lead to **COM** and the red lead to the voltage-measurement socket, usually marked **V/Ω**. Do not use the 10 A socket.
@@ -71,9 +71,38 @@ On a typical breadboard, a numbered row contains two separate groups of five con
 | --- | --- |
 | Signal assembly | Reported complete by user; visual review pending. |
 | Multimeter availability | Confirmed by user. |
-| VIN/5V-to-GND voltage | Pending measurement. |
+| Board supply-to-GND voltage | 5.17 V, reported by user; exact measured pin label to confirm. |
 | Sensor supply under load | Not tested. |
+| Divider output with constant test input | User reported 3.2 V; calculated nominal value is 3.102 V for a 5.17 V input. Exact resistor values, tolerances, and meter accuracy have not been checked independently. |
 | Divider output during ECHO pulses | Not tested. |
+
+## Test the divider with a constant voltage
+
+Before connecting the divider to GPIO19, test it separately using the same board pin where the user measured 5.17 V. A constant input allows the divider ratio to be checked with a DC multimeter; this is not a sensor ECHO measurement.
+
+1. Disconnect USB. Keep the sensor disconnected, including VCC and ECHO, and disconnect GPIO19 from the divider junction. Do not connect any signal GPIO during this test.
+2. Connect the lower end of R2 (3.3 kΩ) to ESP32 GND.
+3. Connect a temporary jumper from the measured 5.17 V board supply pin to the outer end of R1 (2.2 kΩ), where ECHO would normally connect. Keep the R1/R2 junction separate from this supply connection.
+4. Confirm the junction has no connection to GPIO19 or the sensor. Connect USB.
+5. With the meter in DC voltage mode, put the black probe on ESP32 GND and the red probe on the R1/R2 junction.
+6. Record the reading. The calculated value is `5.17 × 3.3 / (2.2 + 3.3) = 3.102 V`, approximately **3.10 V**. This is expected, not an observed result; resistor tolerances and measurement accuracy affect the actual value.
+7. Disconnect USB, then remove the temporary supply-to-R1 jumper. Do not restore sensor ECHO or GPIO19 until that jumper is removed and the result has been reviewed.
+
+```text
+Measured supply ----[ R1: 2.2 kΩ ]----+---- Red voltage probe
+                                     |
+                                [ R2: 3.3 kΩ ]
+                                     |
+ESP32 GND ---------------------------+---- Black voltage probe
+
+Sensor and GPIO19: DISCONNECTED during this test
+```
+
+The user should report the junction voltage, the original supply pin label, and a clear assembly photograph. If the reading differs substantially from the calculated value, investigate resistor values and breadboard connections before continuing.
+
+**Reported result:** the user measured **3.2 V** at the divider junction. This demonstrates attenuation in the reported constant-input test; it is not a measurement of the sensor's ECHO pulse peak. The difference from the nominal 3.102 V has not been attributed to a verified cause. Resistor tolerance, actual input voltage during this test, meter accuracy, and display rounding may contribute.
+
+In the final signal circuit, the junction connects to **D19 / GPIO19**. ECHO pulses drive the divider input, and GPIO19 receives their reduced voltage levels. The program will measure pulse duration to calculate distance; voltage amplitude itself does not encode distance. Remove the temporary supply-to-R1 jumper with USB disconnected before restoring ECHO or GPIO19.
 
 ## Next steps after inspection and voltage verification
 
