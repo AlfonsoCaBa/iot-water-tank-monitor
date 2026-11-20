@@ -1,6 +1,6 @@
 # Wiring — Stage 1 signal connections
 
-**Status: signal connections specified; physical assembly and sensor power verification pending.** The photographed board is a classic ESP32 development board with labels D18 and D19. Its USB board check passed according to the user's report. The user reports having resistors; verify the 2.2 kΩ and 3.3 kΩ values before assembly. No sensor circuit test has been reported.
+**Status: signal assembly reported by the user; inspection and sensor power verification pending.** The photographed board is a classic ESP32 development board with labels D18 and D19. Its USB board check passed according to the user's report. The user reports completing the signal connections and having a multimeter. No assembly photograph has been reviewed, resistor values have not been independently checked, and no sensor circuit test has been reported.
 
 ## Sensor pin functions
 
@@ -55,9 +55,29 @@ This is a design calculation, not a multimeter measurement. Common ground allows
 
 On a typical breadboard, a numbered row contains two separate groups of five connected holes, split by the center gap. Put the three junction connections in one connected group. Place each resistor's two ends in different electrical groups, or the resistor will be bypassed. Power rails may also be split; verify continuity where necessary.
 
-## Next steps after inspection
+## Verify the board supply with a multimeter
 
-Confirm the board's sensor power connection and ground using its labeling and appropriate voltage checks. Only then connect sensor VCC, reconnect USB, and test the sensor sketch against a flat surface. The board-check sketch does not trigger the sensor or measure distance.
+**Status: procedure prepared; no voltage reading has been reported.** This checks only the USB-powered board, not the sensor circuit under load.
+
+1. With USB disconnected, take a clear photograph of the current assembly for review. Temporarily disconnect the ESP32's jumper connections to the sensor and divider, leaving that circuit unpowered. Keep sensor VCC disconnected.
+2. Connect the black meter lead to **COM** and the red lead to the voltage-measurement socket, usually marked **V/Ω**. Do not use the 10 A socket.
+3. Select **DC voltage**, marked **V⎓**. For a manual-ranging meter, use the **20 V** range; for an autoranging meter, use DC voltage mode. Do not use current, resistance, or continuity mode for this powered measurement.
+4. Identify **GND** and the pin labeled **VIN** or **5V** on the board itself. Do not substitute 3V3 or guess by pin position. If the labels cannot be read, obtain a clear photograph before continuing.
+5. Power only the ESP32 through USB. Put the black probe on GND and the red probe on the identified VIN/5V pin. Avoid bridging adjacent pins with a probe tip.
+6. Record the displayed voltage and the exact pin label. A value near 5 V is expected for a USB-derived supply, possibly reduced by protection components, but the actual value must be measured on this board.
+7. Disconnect USB again before reconnecting any jumper wires. Share the reading and assembly photograph before powering the sensor circuit.
+
+| Check | Result |
+| --- | --- |
+| Signal assembly | Reported complete by user; visual review pending. |
+| Multimeter availability | Confirmed by user. |
+| VIN/5V-to-GND voltage | Pending measurement. |
+| Sensor supply under load | Not tested. |
+| Divider output during ECHO pulses | Not tested. |
+
+## Next steps after inspection and voltage verification
+
+Review the assembly and the board's measured supply voltage first. Then document the accepted power connection, reconnect the signal circuit with USB disconnected, and explain sensor VCC wiring and the sensor sketch before testing against a flat surface. The board-check sketch does not trigger the sensor or measure distance. An ordinary DC-voltage reading of ECHO is not a reliable way to check its pulse peak voltage.
 
 Do not assume that every pin labeled VIN provides 5 V from USB. Its use depends on the board. The [ESP32-DevKitC guide](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html) describes a specific board; it does not identify the one we own.
 
