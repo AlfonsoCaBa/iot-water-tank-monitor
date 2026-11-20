@@ -2,7 +2,7 @@
 
 University IoT project that estimates the water available in a small container representing a water storage tank, stores measurements in the cloud, and displays them on a web dashboard.
 
-**Status: Stage 0 — preparation in progress.** Initial documentation is available; firmware and dashboard implementation have not started. No physical tests have been performed.
+**Status: Stage 0 — preparation in progress.** Initial documentation and a serial board-check sketch are available. The user has confirmed USB detection and board profile selection; compilation, upload, and serial output are pending. Sensor firmware and dashboard implementation have not started.
 
 ## How it will work
 
@@ -32,7 +32,9 @@ iot-water-tank-monitor/
 ├── README.md
 ├── .gitignore
 ├── firmware/
-│   └── README.md
+│   ├── README.md
+│   └── board_check/
+│       └── board_check.ino
 ├── dashboard/
 │   └── README.md
 ├── docs/
@@ -46,7 +48,7 @@ iot-water-tank-monitor/
     └── README.md
 ```
 
-Each project directory starts with documentation so it can be tracked in Git before we study and write its code.
+Project directories start with documentation; code is added as we study each stage. The board-check sketch only verifies the development setup.
 
 ## Getting started
 
