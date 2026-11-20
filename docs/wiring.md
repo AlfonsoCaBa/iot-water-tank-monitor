@@ -1,6 +1,6 @@
 # Wiring — Stage 1 signal connections
 
-**Status: final connection instructions prepared; sensor power and distance test pending.** The user reported a 5.17 V board supply reading, a 3.2 V static divider reading, and restoring D18, D19, and ECHO connections. No assembly photograph has been reviewed and resistor values have not been independently checked. The supply pin's printed label remains to be recorded. The earlier USB board check passed according to the user's report.
+**Status: functional sensor distance test passed based on the user's report.** The user reported a 5.17 V board supply reading, a 3.2 V static divider reading, and later running the sensor sketch and checking changing distances with a ruler. See the [test record](../tests/results/2026-11-20-sensor-distance.md). No assembly photograph has been reviewed and resistor values have not been independently checked. The supply pin's printed label and sensor supply voltage under load remain to be recorded.
 
 ## Sensor pin functions
 
@@ -113,7 +113,7 @@ In the final signal circuit, the junction connects to **D19 / GPIO19**. ECHO pul
 5. If the supply check is satisfactory, open the [sensor sketch](../firmware/water_tank_monitor/water_tank_monitor.ino), verify and upload it, and open Serial Monitor at 115200 baud. The board-check sketch does not trigger the sensor or measure distance.
 6. Begin with a broad, flat target at approximately 20 cm, measured from the front of the transducers. Record 5–10 readings while keeping the target fixed. Then compare with other known distances before mounting above water.
 
-These instructions describe work to perform; sensor supply under load, upload, and distance readings have not been confirmed. An ordinary DC-voltage reading of ECHO is not a reliable way to check its pulse peak voltage.
+The user has since reported running the uploaded sketch and checking distance readings with a ruler. Numeric reference/measurement pairs and the sensor supply reading under load were not supplied. An ordinary DC-voltage reading of ECHO is not a reliable way to check its pulse peak voltage.
 
 Do not assume that every pin labeled VIN provides 5 V from USB. Its use depends on the board. The [ESP32-DevKitC guide](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html) describes a specific board; it does not identify the one we own.
 

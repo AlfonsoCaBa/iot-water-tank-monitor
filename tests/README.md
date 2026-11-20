@@ -1,6 +1,6 @@
 # Tests and evidence
 
-**Status:** the board check passed based on the user's report of a successful Windows run and repeated serial output. See the [Stage 0 test record](results/2026-11-20-board-check.md). Sensor measurements remain unverified. There are no automated tests yet.
+**Status:** the [board check](results/2026-11-20-board-check.md) and [functional sensor distance test](results/2026-11-20-sensor-distance.md) passed based on the user's reports. Quantitative distance accuracy, stability, container calibration, and water-volume calculations remain unverified. There are no automated tests yet.
 
 At each stage, we will record the setup, versions, procedure, expected result, observed result, and limitations. Failed trials must also be documented.
 

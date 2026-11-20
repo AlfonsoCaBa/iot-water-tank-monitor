@@ -39,4 +39,8 @@ Sources: [HC-SR04 datasheet](https://cdn.sparkfun.com/datasheets/Sensors/Proximi
 
 **Local compilation:** Arduino CLI successfully compiled this sketch for `esp32:esp32:esp32` using the installed ESP32 core **4.0.0**. Reported usage: 292717 bytes of program storage and 23208 bytes of global-variable memory. Build artifacts and the local CLI configuration are stored under the ignored `firmware/build/` directory; no upload was performed by the assistant.
 
-**Physical test status:** the sensor sketch has not been uploaded or tested according to available evidence. The assistant has not powered the sensor or observed distance readings. The earlier board-check pass does not validate this sketch's physical behavior. See the [setup evidence](../docs/setup.md).
+**Physical test status:** functional distance test passed based on the user's report: the sketch ran, responded to different target distances, and was checked with a ruler. Exact reference distances, reading series, and errors were not supplied, so no numeric accuracy or stability claim is made. See the [sensor test record](../tests/results/2026-11-20-sensor-distance.md). The assistant did not perform the physical test.
+
+## Stage 2: calibration pending
+
+The sketch remains a distance-only program. Before modifying it to calculate level and liters, collect the container geometry, usable capacity, and empty/full reference distances described in the [calibration guide](../docs/calibration.md).
