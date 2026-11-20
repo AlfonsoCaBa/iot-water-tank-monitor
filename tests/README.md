@@ -1,6 +1,6 @@
 # Tests and evidence
 
-**Status:** the user confirmed USB detection through a disconnect/reconnect check and reported the installed ESP32 core and selected board profile. A manual board-check sketch is available; compilation, upload, serial output, and sensor measurements remain unverified. There are no automated tests yet.
+**Status:** the board check passed based on the user's report of a successful Windows run and repeated serial output. See the [Stage 0 test record](results/2026-11-20-board-check.md). Sensor measurements remain unverified. There are no automated tests yet.
 
 At each stage, we will record the setup, versions, procedure, expected result, observed result, and limitations. Failed trials must also be documented.
 

@@ -10,7 +10,7 @@ Open [board_check/board_check.ino](board_check/board_check.ino) in Arduino IDE. 
 
 Expected output includes increasing `Uptime (s):` values approximately every two seconds. The initial number depends on when Serial Monitor is opened. Press EN after opening the monitor to see startup output again if needed.
 
-**Test status:** sketch prepared, but compilation, upload, and serial output have not been confirmed. The assistant has not performed a physical upload. Report the observed output before marking this check as passed. See the [official serial API](https://docs.espressif.com/projects/arduino-esp32/en/latest/api/serial.html).
+**Test status:** passed based on the user's report of a successful Windows sketch run with uptime values `1`, `3`, and `5`. See the [test record](../tests/results/2026-11-20-board-check.md). The assistant did not perform the upload or independently observe the monitor. See the [official serial API](https://docs.espressif.com/projects/arduino-esp32/en/latest/api/serial.html).
 
 ## Stage 1: sensor measurements
 

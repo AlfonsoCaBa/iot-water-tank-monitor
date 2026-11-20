@@ -2,7 +2,7 @@
 
 University IoT project that estimates the water available in a small container representing a water storage tank, stores measurements in the cloud, and displays them on a web dashboard.
 
-**Status: Stage 0 — preparation in progress.** Initial documentation and a serial board-check sketch are available. The user has confirmed USB detection and board profile selection; compilation, upload, and serial output are pending. Sensor firmware and dashboard implementation have not started.
+**Status: Stage 0 complete; Stage 1 — sensor circuit preparation.** The user reported resolving Windows USB detection, running the board-check sketch, and receiving increasing uptime values. See the [test record](tests/results/2026-11-20-board-check.md). Sensor wiring, measurements, and dashboard implementation remain pending.
 
 ## How it will work
 

@@ -1,5 +1,7 @@
 # Stage 0 — Environment setup
 
+**Status: complete based on the user's successful Windows board-check report.** The earlier environment reviews and troubleshooting entries below record the setup history, rather than the current driver state. See the [test record](../tests/results/2026-11-20-board-check.md).
+
 ## Local environment review — November 18, 2026
 
 | Item | Evidence found | Remaining work |
@@ -21,14 +23,14 @@ Finding installed files does not prove that the board communicates correctly.
 - The board photograph shows a module labeled `ESP-32`, a USB-C connector, and BOOT and EN buttons. Its markings and layout indicate a classic ESP32 development board; the exact manufacturer and flash capacity are not established by the photograph.
 - Recommended initial board profile: **ESP32 Dev Module**. Selection, compilation, and upload have not yet been confirmed. Espressif documents generic development profiles in its [Tools Menu guide](https://docs.espressif.com/projects/arduino-esp32/en/latest/guides/tools_menu.html).
 - Follow-up: the user confirmed **esp32 by Espressif Systems** is installed, reported its version as `4.0`, and confirmed selecting **ESP32 Dev Module**. The complete release string and the test computer's IDE version have not been independently verified. The Windows core version above does not describe this installation.
-- Next: verify and upload the [board-check sketch](../firmware/board_check/board_check.ino), then observe serial output at **115200 baud**, with the sensor disconnected. Keep other board settings at their defaults for now.
+- Completed follow-up: the user later reported running the [board-check sketch](../firmware/board_check/board_check.ino) on Windows and receiving the expected uptime output. The full Windows core version and assigned COM number were not supplied.
 
-USB detection is user-reported evidence. It does not establish that firmware upload, serial output, or sensor measurement works. No physical tests were performed by the assistant.
+The initial USB detection report alone did not establish firmware upload or serial output. The later board-check report provides user-reported evidence for those steps. Sensor measurement remains untested. No physical tests were performed by the assistant.
 
-### Pending upload and serial check
+### Upload and serial-check procedure
 
 1. Open `firmware/board_check/board_check.ino` on the computer connected to the ESP32. If transferring the sketch manually, preserve the `board_check` directory and `board_check.ino` file names.
-2. Confirm **ESP32 Dev Module** and the port on the computer currently connected to the board. `/dev/cu.usbserial-0001` was confirmed on macOS; Windows port detection is blocked by the missing driver described below.
+2. Confirm **ESP32 Dev Module** and the port on the computer currently connected to the board. `/dev/cu.usbserial-0001` was confirmed on macOS; the Windows COM number must be read from the current port list. The initial Windows driver issue described below has been reported resolved.
 3. Click **Verify** (checkmark). A successful compilation checks that the sketch builds; it does not upload anything.
 4. Click **Upload** (right arrow). This writes the sketch to the board, replacing its previous application. Wait for completion and check for errors.
 5. Open **Tools → Serial Monitor** and select **115200 baud**, matching `Serial.begin(115200)`.
@@ -37,17 +39,17 @@ USB detection is user-reported evidence. It does not establish that firmware upl
 
 ### Switch to Windows: missing CP2102 driver
 
-The user chose the Windows computer for further development. Read-only Windows device queries found:
+The user chose the Windows computer for further development. Before the successful board check, read-only Windows device queries found:
 
 - **COM7** and **COM8** are Bluetooth serial ports, not the ESP32's USB serial port.
 - **CP2102 USB to UART Bridge Controller**, hardware ID `VID_10C4&PID_EA60`, is present with **problem code 28**, and no driver version or provider is recorded.
-- Microsoft documents [code 28](https://learn.microsoft.com/en-us/windows-hardware/drivers/install/cm-prob-failed-install) as missing device drivers. Firmware upload remains pending.
+- Microsoft documents [code 28](https://learn.microsoft.com/en-us/windows-hardware/drivers/install/cm-prob-failed-install) as missing device drivers. Firmware upload was blocked at that point.
 
-The next step is to download **CP210x Universal Windows Driver** from [Silicon Labs](https://www.silabs.com/software-and-tools/usb-to-uart-bridge-vcp-drivers?tab=downloads), extract the archive, and install it through Windows Device Manager: right-click the CP2102 entry, select **Update driver → Browse my computer for drivers**, select the extracted directory, include subfolders, and follow the installation prompts.
+The recommended resolution was to download **CP210x Universal Windows Driver** from [Silicon Labs](https://www.silabs.com/software-and-tools/usb-to-uart-bridge-vcp-drivers?tab=downloads), extract the archive, and install it through Windows Device Manager: right-click the CP2102 entry, select **Update driver → Browse my computer for drivers**, select the extracted directory, include subfolders, and follow the installation prompts.
 
-After installation, reconnect the board and check for a **Silicon Labs CP210x USB to UART Bridge (COM...)** entry. Verify the port by disconnecting and reconnecting the board before selecting it in Arduino IDE. This is an expected outcome, not a verified result. No driver has been installed by the assistant.
+After installation, the expected check is a **Silicon Labs CP210x USB to UART Bridge (COM...)** entry that disappears and reappears when the board is disconnected and reconnected. The user subsequently reported resolving the issue and running the sketch successfully. The assigned COM number and installed driver version were not supplied. No driver was installed by the assistant.
 
-The earlier core version and board selection reported on macOS do not establish the current Windows IDE settings. Confirm them on Windows before uploading the board-check sketch.
+The earlier macOS core version does not establish the current Windows core version. The successful sketch run confirms a working development path according to the user; record the exact Windows core version and COM number when available.
 
 ## 1. Confirm Arduino IDE and the core
 
@@ -114,9 +116,9 @@ git push -u origin main
 - [x] Confirm that Arduino IDE opens and shows the ESP32 core as installed, based on the user's report.
 - [x] Identify the board family from the photograph and verify USB detection through the user's disconnect/reconnect check; exact manufacturer remains unconfirmed.
 - [x] Select **ESP32 Dev Module**, based on the user's report.
-- [ ] Install the missing CP210x driver on Windows and verify the board's COM port.
-- [ ] Confirm the installed ESP32 core version and **ESP32 Dev Module** selection in the Windows IDE.
-- [ ] Compile and upload the board-check sketch, then confirm repeated serial output.
+- [x] Resolve Windows USB communication, based on the user's report after troubleshooting the CP2102 driver.
+- [x] Establish a working Windows compilation/upload path, based on the user's successful sketch run. Exact core version and COM number remain to be recorded.
+- [x] Run the board-check sketch and confirm repeated serial output, based on the user's reported `1`, `3`, and `5` second uptime values.
 - [x] Create the initial documentation commit; it is present in the local repository history.
 
-Stage 1 begins after the environment is confirmed and the materials needed to connect the sensor are available.
+Stage 1 starts with confirming the circuit materials and power connection before wiring the sensor.

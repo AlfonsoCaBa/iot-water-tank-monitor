@@ -1,11 +1,11 @@
 # Development roadmap
 
-**Active stage: 0.** The following stages are a plan, not completed work. Each program's purpose, connections, and important parts will be explained before implementation.
+**Active stage: 1 — circuit preparation.** Stage 0 is complete based on the user's Windows board-check report. Later stages remain planned work. Each program's purpose, connections, and important parts will be explained before implementation.
 
 | Stage | Work | Evidence needed to move forward | Status |
 | --- | --- | --- | --- |
-| 0 — Preparation | Review tools, identify the board, and organize the repository. | IDE opens, core is confirmed, and board is detected over USB. | In progress. |
-| 1 — Sensor and ESP32 | Review pins and voltage divider; display distances in the serial monitor. | Repeated readings at reference distances, with failures recorded. | Pending. |
+| 0 — Preparation | Review tools, identify the board, and organize the repository. | Working upload path and repeated board-check serial output, reported by the user. | Complete; see the [test record](../tests/results/2026-11-20-board-check.md). |
+| 1 — Sensor and ESP32 | Review pins and voltage divider; display distances in the serial monitor. | Repeated readings at reference distances, with failures recorded. | Circuit preparation; materials and power connection to confirm before wiring. |
 | 2 — Volume | Select a container, calibrate empty/full distances, validate, filter, and convert to liters. | Comparison with known quantities, with geometry and error documented. | Pending. |
 | 3 — Connection | Connect to Wi-Fi and recover from disconnections. | Test with network loss and recovery. | Pending. |
 | 4 — Cloud | Select storage, authorize uploads, and preserve history. | Actual records and handling of communication errors. | Pending. |
