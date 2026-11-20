@@ -4,10 +4,16 @@
 
 | Component | Quantity | Status / purpose |
 | --- | --- | --- |
-| ESP32 board | 1 | Available; model to be confirmed. Processing and Wi-Fi. |
+| ESP32 board | 1 | Available; photograph indicates a classic ESP32 development board with USB-C. Exact manufacturer unconfirmed. Processing and Wi-Fi. |
 | HC-SR04 | 1 | Available; confirm the VCC, TRIG, ECHO, and GND labels. |
 | Windows computer | 1 | Available. Programming and viewing the dashboard. |
 | Container | 1 | Available; shape and dimensions still need to be evaluated. |
+
+## Board observations — November 20, 2026
+
+The user's photograph shows a module labeled `ESP-32`, a USB-C connector, and BOOT and EN buttons. A classic ESP32 development board is the current visual identification; the photograph does not establish the exact manufacturer, module part number, or flash capacity. **ESP32 Dev Module** is the recommended initial Arduino IDE profile, pending an upload test.
+
+The user confirmed USB serial detection at `/dev/cu.usbserial-0001` by disconnecting and reconnecting the board. The test computer shows macOS-style port names. The IDE/core versions on that computer remain to be recorded; the earlier Windows inventory is a separate environment.
 
 ## Materials to gather or buy if missing from the kit
 
@@ -43,6 +49,6 @@ The kit's HC-SR04 must be kept dry, without submerging it or exposing it to spla
 
 ## Details to confirm
 
-- Exact ESP32 model, USB connector type, and availability of a suitable sensor power pin.
+- Exact board manufacturer/module part number, flash capacity, and availability of a suitable sensor power pin. The USB-C connector has been identified from the photograph.
 - Materials already included in the kit and access to a laboratory multimeter.
 - Shape, internal dimensions, and usable capacity of the selected container.

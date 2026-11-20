@@ -6,4 +6,4 @@ In Stage 1, we will create the `water_tank_monitor/water_tank_monitor.ino` sketc
 
 The first program will only measure distances and display them over the serial port. Calculations, Wi-Fi, and cloud uploads will be added in their respective stages, with an explanation of each change.
 
-**Status:** no code yet; the board and GPIO pins still need to be identified.
+**Status:** no code yet. The photograph indicates a classic ESP32 development board with USB-C; **ESP32 Dev Module** is the recommended initial profile. GPIO selection, compilation, and upload verification are still pending. See the [setup evidence](../docs/setup.md).

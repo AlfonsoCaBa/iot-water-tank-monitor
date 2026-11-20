@@ -14,11 +14,21 @@
 
 Finding installed files does not prove that the board communicates correctly.
 
+## Board identification and USB check — November 20, 2026
+
+- The user confirmed that `/dev/cu.usbserial-0001` disappears when the board is disconnected and reappears when it is reconnected. This identifies the board's USB serial port for the current session.
+- The Arduino IDE screenshot uses macOS-style port names. This hardware check is being performed on a different environment from the Windows workspace reviewed above; its IDE and ESP32 core versions still need to be confirmed.
+- The board photograph shows a module labeled `ESP-32`, a USB-C connector, and BOOT and EN buttons. Its markings and layout indicate a classic ESP32 development board; the exact manufacturer and flash capacity are not established by the photograph.
+- Recommended initial board profile: **ESP32 Dev Module**. Selection, compilation, and upload have not yet been confirmed. Espressif documents generic development profiles in its [Tools Menu guide](https://docs.espressif.com/projects/arduino-esp32/en/latest/guides/tools_menu.html).
+- Next: confirm **esp32 by Espressif Systems** in Boards Manager, record its version on the test computer, select **ESP32 Dev Module**, and select the verified serial port. Keep other settings at their defaults for now.
+
+USB detection is user-reported evidence. It does not establish that firmware upload, serial output, or sensor measurement works. No physical tests were performed by the assistant.
+
 ## 1. Confirm Arduino IDE and the core
 
 The IDE is the application where we write, compile, and upload firmware. The core provides ESP32-specific tools and functions; an Arduino Uno board is not required to use Arduino IDE.
 
-1. Open **Arduino IDE** from the Windows Start menu.
+1. Open **Arduino IDE** from the Windows Start menu or the macOS Applications folder, depending on the computer used for the hardware test.
 2. Go to **Help → About** and check the version.
 3. Open **Boards Manager** from the sidebar.
 4. Search for `esp32` and check that **esp32 by Espressif Systems** is installed. Record its version.
@@ -36,11 +46,11 @@ Then return to Boards Manager and install **esp32 by Espressif Systems** from th
 
 1. Copy the text on the metal module and the labels on both sides of the circuit board. Identify the USB connector.
 2. With the sensor still disconnected, connect only the ESP32 using a USB **data** cable.
-3. Open Windows **Device Manager** and observe which device appears when the board is connected. It usually appears under **Ports (COM & LPT)**; some variants use native USB and may appear differently.
-4. Record the port, such as `COM5`; this number is an example, not a verified observation.
+3. On Windows, open **Device Manager** and observe which device appears when the board is connected. It usually appears under **Ports (COM & LPT)**; some variants use native USB and may appear differently. On macOS, compare the Arduino IDE port list before and after connecting the board.
+4. Record the port. `COM5` is a Windows example; `/dev/cu.usbserial-0001` is the port confirmed by the user during the current macOS test. Port names may change on another computer.
 5. In Arduino IDE, open **Tools → Port** and check whether the port appears.
 
-Do not select a generic board by trial and error yet: ESP32, ESP32-C3, and ESP32-S3 require different configurations. We will select the correct option after identifying the model.
+Select a profile for the identified chip family: ESP32, ESP32-C3, and ESP32-S3 require different configurations. For the photographed board, the recommended starting profile is **ESP32 Dev Module**, pending compilation and upload verification.
 
 If only an LED lights up and no device appears, try another data cable and USB port. If Windows shows an unknown device, first identify its chip or hardware IDs to select the appropriate official driver. Avoid installing unrelated drivers.
 
@@ -77,7 +87,7 @@ git push -u origin main
 - [x] Review the existing files and available tools.
 - [x] Prepare the structure, README, and initial documentation.
 - [ ] Confirm that Arduino IDE opens and shows the ESP32 core as installed.
-- [ ] Identify the board and verify its detection over USB.
+- [x] Identify the board family from the photograph and verify USB detection through the user's disconnect/reconnect check; exact manufacturer remains unconfirmed.
 - [ ] Review the documentation and create the first commit to save this progress if desired.
 
 Stage 1 begins after the environment is confirmed and the materials needed to connect the sensor are available.
