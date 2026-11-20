@@ -14,8 +14,29 @@ Expected output includes increasing `Uptime (s):` values approximately every two
 
 ## Stage 1: sensor measurements
 
-In Stage 1, we will create the `water_tank_monitor/water_tank_monitor.ino` sketch. Arduino requires the sketch directory and its main file to have the same name.
+Open [water_tank_monitor/water_tank_monitor.ino](water_tank_monitor/water_tank_monitor.ino). Arduino requires the sketch directory and its main file to have the same name.
 
-The first sensor program will only measure distances and display them over the serial port. Calculations, Wi-Fi, and cloud uploads will be added in their respective stages, with an explanation of each change.
+This first sensor program only measures distance and displays it over the serial port. Volume calculations, filtering, Wi-Fi, and cloud uploads will be added in their respective stages, with an explanation of each change.
 
-**Application status:** sensor code and GPIO selection are pending. The photograph indicates a classic ESP32 development board with USB-C. The user has confirmed selecting **ESP32 Dev Module**. See the [setup evidence](../docs/setup.md).
+### How the measurement works
+
+- `TRIG_PIN = 18` is an output; `ECHO_PIN = 19` is an input reached through the voltage divider.
+- The sketch starts TRIG low, holds it high for 10 microseconds, and returns it low to request a measurement.
+- `pulseIn(ECHO_PIN, HIGH, 30000)` measures the high pulse in microseconds. A zero result is treated as a missing or incomplete echo, not an empty tank.
+- Sound travels approximately 0.0343 cm per microsecond near room temperature. `distance = echo time × 0.0343 / 2` accounts for the round trip. This approximation is temperature dependent and is not a calibration result.
+- Computed distances outside the specified 2–400 cm range are rejected. This basic range check does not detect every incorrect reflection within that range.
+- `delay(500)` spaces readings by at least half a second; the echo measurement adds a small amount of time. No smoothing is applied yet, so fluctuations remain visible.
+
+### First physical test
+
+1. Follow the [final sensor connection instructions](../docs/wiring.md#final-sensor-connection-and-first-distance-test), removing the temporary divider test jumper before connecting the sensor.
+2. Select **ESP32 Dev Module** and the current Windows COM port. Verify and upload this sketch, then open Serial Monitor at **115200 baud**.
+3. Aim the sensor perpendicular to a broad, flat target, such as a wall or large rigid board. Start at about 20 cm, measured from the front of the transducers. Keep the target away from the sensor's minimum distance.
+4. Record 5–10 consecutive readings without moving the target. Repeat at approximately 10 cm and 30 cm, measuring the actual reference distances with a ruler.
+5. Report the actual readings and any errors. Do not infer that the water-level measurement works from this dry target test alone.
+
+Sources: [HC-SR04 datasheet](https://cdn.sparkfun.com/datasheets/Sensors/Proximity/HCSR04.pdf), [Arduino pulseIn reference](https://docs.arduino.cc/language-reference/en/functions/advanced-io/pulseIn/).
+
+**Local compilation:** Arduino CLI successfully compiled this sketch for `esp32:esp32:esp32` using the installed ESP32 core **4.0.0**. Reported usage: 292717 bytes of program storage and 23208 bytes of global-variable memory. Build artifacts and the local CLI configuration are stored under the ignored `firmware/build/` directory; no upload was performed by the assistant.
+
+**Physical test status:** the sensor sketch has not been uploaded or tested according to available evidence. The assistant has not powered the sensor or observed distance readings. The earlier board-check pass does not validate this sketch's physical behavior. See the [setup evidence](../docs/setup.md).

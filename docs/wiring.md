@@ -1,12 +1,12 @@
 # Wiring — Stage 1 signal connections
 
-**Status: signal assembly reported by the user; inspection and sensor power verification pending.** The photographed board is a classic ESP32 development board with labels D18 and D19. Its USB board check passed according to the user's report. The user reports completing the signal connections and having a multimeter. No assembly photograph has been reviewed, resistor values have not been independently checked, and no sensor circuit test has been reported.
+**Status: final connection instructions prepared; sensor power and distance test pending.** The user reported a 5.17 V board supply reading, a 3.2 V static divider reading, and restoring D18, D19, and ECHO connections. No assembly photograph has been reviewed and resistor values have not been independently checked. The supply pin's printed label remains to be recorded. The earlier USB board check passed according to the user's report.
 
 ## Sensor pin functions
 
 | Pin | Function | Planned connection |
 | --- | --- | --- |
-| VCC | HC-SR04 power supply. | Leave disconnected during this assembly step; the 5 V supply pin must be verified first. |
+| VCC | HC-SR04 power supply. | The same USB-derived board supply pin measured at 5.17 V, after removing the temporary test jumper and inspecting the connections. |
 | GND | Common electrical reference. | ESP32 ground and voltage divider ground. |
 | TRIG | Input that requests a measurement. | ESP32 **D18 / GPIO18**, configured as an output in the future sensor sketch. |
 | ECHO | Output pulse representing the echo time. | Voltage divider junction, then ESP32 **D19 / GPIO19**, configured as an input in the future sensor sketch. |
@@ -29,7 +29,7 @@ HC-SR04 ECHO ----[ R1: 2.2 kΩ ]----+---- ESP32 D19 / GPIO19
 HC-SR04 GND -----------------------+---- ESP32 GND
 
 HC-SR04 TRIG --------------------------- ESP32 D18 / GPIO18
-HC-SR04 VCC ---------------------------- NOT CONNECTED YET
+HC-SR04 VCC ---------------------------- Measured 5.17 V board supply
 ```
 
 The input connects to the junction between the resistors. R2 connects that junction to ground; a single resistor in series is not sufficient.
@@ -104,9 +104,16 @@ The user should report the junction voltage, the original supply pin label, and 
 
 In the final signal circuit, the junction connects to **D19 / GPIO19**. ECHO pulses drive the divider input, and GPIO19 receives their reduced voltage levels. The program will measure pulse duration to calculate distance; voltage amplitude itself does not encode distance. Remove the temporary supply-to-R1 jumper with USB disconnected before restoring ECHO or GPIO19.
 
-## Next steps after inspection and voltage verification
+## Final sensor connection and first distance test
 
-Review the assembly and the board's measured supply voltage first. Then document the accepted power connection, reconnect the signal circuit with USB disconnected, and explain sensor VCC wiring and the sensor sketch before testing against a flat surface. The board-check sketch does not trigger the sensor or measure distance. An ordinary DC-voltage reading of ECHO is not a reliable way to check its pulse peak voltage.
+1. Disconnect USB before changing wires. Confirm that the temporary jumper from the supply pin to R1 has been removed. Only sensor ECHO should feed R1 in the final circuit.
+2. Check GND is shared by the sensor, ESP32, and R2; TRIG connects to D18; and the divider junction connects to D19. ECHO must not connect directly to D19 or remain tied to the supply pin.
+3. Connect sensor **VCC** to the **same board supply pin that measured 5.17 V**. Do not substitute 3V3 or a GPIO. Record the pin's printed label; it has not yet been supplied in the chat.
+4. Reconnect USB as the only power source. With the meter in DC voltage mode, measure directly between sensor VCC and sensor GND to check that power reaches the sensor. Report the actual reading; a value near the earlier board reading is expected. If the voltage collapses, the board repeatedly resets, or a component heats unexpectedly, disconnect USB and inspect the wiring before continuing.
+5. If the supply check is satisfactory, open the [sensor sketch](../firmware/water_tank_monitor/water_tank_monitor.ino), verify and upload it, and open Serial Monitor at 115200 baud. The board-check sketch does not trigger the sensor or measure distance.
+6. Begin with a broad, flat target at approximately 20 cm, measured from the front of the transducers. Record 5–10 readings while keeping the target fixed. Then compare with other known distances before mounting above water.
+
+These instructions describe work to perform; sensor supply under load, upload, and distance readings have not been confirmed. An ordinary DC-voltage reading of ECHO is not a reliable way to check its pulse peak voltage.
 
 Do not assume that every pin labeled VIN provides 5 V from USB. Its use depends on the board. The [ESP32-DevKitC guide](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html) describes a specific board; it does not identify the one we own.
 

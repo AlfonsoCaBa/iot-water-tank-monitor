@@ -49,7 +49,7 @@ The recommended resolution was to download **CP210x Universal Windows Driver** f
 
 After installation, the expected check is a **Silicon Labs CP210x USB to UART Bridge (COM...)** entry that disappears and reappears when the board is disconnected and reconnected. The user subsequently reported resolving the issue and running the sketch successfully. The assigned COM number and installed driver version were not supplied. No driver was installed by the assistant.
 
-The earlier macOS core version does not establish the current Windows core version. The successful sketch run confirms a working development path according to the user; record the exact Windows core version and COM number when available.
+The earlier macOS core version did not establish the Windows core version. During the first sensor sketch's local build check, Arduino CLI selected **esp32:esp32 4.0.0** from the installed Windows packages, establishing the current local core version. The assigned Windows COM number remains to be recorded. Compilation checks do not establish physical upload or sensor behavior.
 
 ## 1. Confirm Arduino IDE and the core
 
