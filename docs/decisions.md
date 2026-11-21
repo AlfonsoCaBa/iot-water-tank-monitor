@@ -20,7 +20,7 @@ Before finalizing the decision, we will review the instructor's requirements, Ja
 
 ## 004 — Container and conversion to liters
 
-**Status: criteria selected; container pending.** We prefer a wide opening and a constant internal cross-sectional area. We will measure the setup's usable capacity. If the cross-sectional area varies with height, we will use a calibrated height-to-volume relationship instead of automatically multiplying height percentage by nominal capacity.
+**Status: container selected; calibration approach selected, implementation pending.** The student supplied photographs and dimensions for the available container, with a shaped lower base and molded graduations through 2500 ml. We will build known-volume versus sensor-distance pairs and later implement piecewise linear interpolation. This avoids assuming that the lower external-looking feature is a water-filled cone or that nominal dimensions define exact capacity. The molded scale alone is not an independent accuracy reference. See the [container record](container-measurements.md). Usable capacity and fixed-mount references still need to be measured; height percentage and volume percentage will be distinguished when they differ.
 
 ## 005 — Learning and progress control
 

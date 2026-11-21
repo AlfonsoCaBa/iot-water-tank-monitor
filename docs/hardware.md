@@ -7,7 +7,7 @@
 | ESP32 board | 1 | Available; photograph indicates a classic ESP32 development board with USB-C. Exact manufacturer unconfirmed. Processing and Wi-Fi. |
 | HC-SR04 | 1 | Available; confirm the VCC, TRIG, ECHO, and GND labels. |
 | Windows computer | 1 | Available. Programming and viewing the dashboard. |
-| Container | 1 | Available; shape and dimensions still need to be evaluated. |
+| Container | 1 | Selected; transparent plastic container with molded markings through 2500 ml and a shaped lower base. Approximate measurements and photographs recorded; usable capacity not calibrated. |
 
 ## Board observations — November 20, 2026
 
@@ -29,7 +29,13 @@ The user confirmed USB serial detection at `/dev/cu.usbserial-0001` by disconnec
 
 Use 1/4 W resistors, preferably with 1% tolerance. Borrowing a multimeter from the laboratory is recommended for checking continuity and voltages. Confirm whether the board already has soldered pin headers before buying connectors.
 
-## Recommended container
+## Selected container
+
+The student selected the available transparent plastic container rather than the earlier beaker shopping suggestion. Reported dimensions include a 23 cm total height, 12.6 cm top diameter, 9.2 cm lower-feature diameter, and a 2500 ml mark 3.4 cm below the rim. Internal water geometry cannot be established from these measurements alone. See the [measurement and photograph record](container-measurements.md).
+
+No replacement container is currently required. Proceed with a fixed sensor mount and a calibration table built from known water volumes. The molded 2500 ml mark is a candidate maximum, subject to sensor clearance and actual volume measurements.
+
+## Earlier shopping reference
 
 Suggested purchase: a **3 L plastic beaker with a wide opening and a body as cylindrical as possible**. It provides a wide opening for mounting the sensor and allows the water to be seen during tests.
 
@@ -51,4 +57,4 @@ The kit's HC-SR04 must be kept dry, without submerging it or exposing it to spla
 
 - Exact board manufacturer/module part number, flash capacity, and availability of a suitable sensor power pin. The USB-C connector has been identified from the photograph.
 - Materials already included in the kit and access to a laboratory multimeter.
-- Shape, internal dimensions, and usable capacity of the selected container.
+- Selected container's usable capacity, fixed-mount empty/full references, and known-volume calibration curve. Initial dimensions and photographs are recorded, but their internal/external baselines are not fully established.

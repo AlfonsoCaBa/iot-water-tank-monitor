@@ -2,7 +2,7 @@
 
 University IoT project that estimates the water available in a small container representing a water storage tank, stores measurements in the cloud, and displays them on a web dashboard.
 
-**Status: Stages 0 and 1 complete based on the user's functional test reports; Stage 2 — container calibration.** The user reported running the sensor sketch, changing target distances, and checking them with a ruler. See the [sensor test record](tests/results/2026-11-20-sensor-distance.md). Container geometry, empty/full calibration, filtering, and conversion to liters are pending; see the [calibration guide](docs/calibration.md). Dashboard implementation has not started.
+**Status: Stages 0 and 1 complete based on the user's functional test reports; Stage 2 — container calibration.** The user reported running the sensor sketch and checking distances with a ruler; see the [sensor test record](tests/results/2026-11-20-sensor-distance.md). [Container measurements and photographs](docs/container-measurements.md) are recorded. Fixed-mount water references, filtering, and conversion to liters remain pending; see the [calibration guide](docs/calibration.md). Dashboard implementation has not started.
 
 ## How it will work
 
@@ -44,6 +44,8 @@ iot-water-tank-monitor/
 │   ├── hardware.md
 │   ├── wiring.md
 │   ├── calibration.md
+│   ├── container-measurements.md
+│   ├── images/container/
 │   ├── architecture.md
 │   ├── decisions.md
 │   └── roadmap.md
