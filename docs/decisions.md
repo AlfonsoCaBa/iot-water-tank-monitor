@@ -20,7 +20,7 @@ Before finalizing the decision, we will review the instructor's requirements, Ja
 
 ## 004 — Container and conversion to liters
 
-**Status: container selected; calibration approach selected, implementation pending.** The student supplied photographs and dimensions for the available container, with a shaped lower base and molded graduations through 2500 ml. We will build known-volume versus sensor-distance pairs and later implement piecewise linear interpolation. This avoids assuming that the lower external-looking feature is a water-filled cone or that nominal dimensions define exact capacity. The molded scale alone is not an independent accuracy reference. See the [container record](container-measurements.md). Usable capacity and fixed-mount references still need to be measured; height percentage and volume percentage will be distinguished when they differ.
+**Status: processing implementation retained; replacement measurements required.** Keep the **2000 ml usable maximum** and interpolation approach, but withdraw the earlier distance references after the student reported an inclined setup on November 24. Collect raw series on a level setup first, then update the program and perform physical volume validation. The volume sketch's readiness flag is false until that update. Height and volume percentages remain distinct; the molded scale alone is not independent accuracy evidence. See the [calibration guide](calibration.md) and [container history](container-measurements.md).
 
 ## 005 — Learning and progress control
 
@@ -29,3 +29,11 @@ Before finalizing the decision, we will review the instructor's requirements, Ja
 ## 006 — English documentation and manual Git commands
 
 **Status: selected by the student.** All repository documentation, diagram labels, code comments, and commit messages will be written in English. Each suggested commit will include the exact commands for reviewing changes, staging files, creating the commit, and pushing it. The student runs these commands; the assistant does not create commits or push automatically.
+
+## 007 — Median filtering and explicit invalid data
+
+**Status: implemented for Stage 2 validation.** Use the median of five consecutive usable samples to reduce isolated distance spikes without another library. Invalid readings reset the window and do not become zero liters. Small endpoint excursions are allowed within a provisional 0.5 cm margin, clamped, and visibly flagged; larger departures are invalid. This setting needs review against physical reading series. The processing code is shared with computer-side C++ tests; those tests do not replace sensor and volume validation.
+
+## 008 — Separate raw collection from calibrated operation
+
+**Status: selected on November 24, 2026.** Collect replacement measurements with a standalone `calibration_reader` sketch that does not apply the withdrawn table, endpoint margin, or smoothing. Preserve errors and raw samples. Update the volume program only after the new data arrive, then let the student validate its estimates with water. This prevents old calibration bounds from biasing new data collection.

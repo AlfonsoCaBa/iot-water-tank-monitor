@@ -2,6 +2,8 @@
 
 **Status: functional sensor distance test passed based on the user's report.** The user reported a 5.17 V board supply reading, a 3.2 V static divider reading, and later running the sensor sketch and checking changing distances with a ruler. See the [test record](../tests/results/2026-11-20-sensor-distance.md). No assembly photograph has been reviewed and resistor values have not been independently checked. The supply pin's printed label and sensor supply voltage under load remain to be recorded.
 
+The current task is to collect replacement distances on a level, stable setup while keeping the **2000 ml usable maximum**. Keep the same signal wiring, fix the mount before collecting the series, and follow the [Stage 2 calibration guide](calibration.md). The initial assembly and dry-target steps below describe the earlier electronics setup and do not need to be repeated just to remeasure water levels.
+
 ## Sensor pin functions
 
 | Pin | Function | Planned connection |

@@ -2,7 +2,7 @@
 
 University IoT project that estimates the water available in a small container representing a water storage tank, stores measurements in the cloud, and displays them on a web dashboard.
 
-**Status: Stages 0 and 1 complete based on the user's functional test reports; Stage 2 — container calibration.** The user reported running the sensor sketch and checking distances with a ruler; see the [sensor test record](tests/results/2026-11-20-sensor-distance.md). [Container measurements and photographs](docs/container-measurements.md) are recorded. Fixed-mount water references, filtering, and conversion to liters remain pending; see the [calibration guide](docs/calibration.md). Dashboard implementation has not started.
+**Status: Stages 0–2 accepted; Stage 3 — Wi-Fi preparation.** The student reported successful calibrated volume output; see the [acceptance record](tests/results/2026-11-24-volume-validation.md). The current firmware uses nine reference points and a **2000 ml usable maximum**. No numerical physical accuracy result is claimed. Keep the [active calibration](docs/calibration.md) fixed while adding network connectivity. Wi-Fi code, cloud storage, and the dashboard have not been implemented yet.
 
 ## How it will work
 
@@ -35,8 +35,11 @@ iot-water-tank-monitor/
 │   ├── README.md
 │   ├── board_check/
 │   │   └── board_check.ino
+│   ├── calibration_reader/
+│   │   └── calibration_reader.ino
 │   └── water_tank_monitor/
-│       └── water_tank_monitor.ino
+│       ├── water_tank_monitor.ino
+│       └── tank_processing.h
 ├── dashboard/
 │   └── README.md
 ├── docs/
@@ -50,7 +53,9 @@ iot-water-tank-monitor/
 │   ├── decisions.md
 │   └── roadmap.md
 └── tests/
-    └── README.md
+    ├── README.md
+    ├── tank_processing_test.cpp
+    └── results/
 ```
 
 Project directories start with documentation; code is added as we study each stage. The board-check sketch only verifies the development setup.

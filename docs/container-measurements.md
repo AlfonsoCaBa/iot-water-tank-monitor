@@ -1,6 +1,6 @@
 # Stage 2 — Container observations
 
-**Date:** November 20, 2026. **Evidence:** measurements and seven photographs supplied by the student. These are not independently measured dimensions or a completed volume calibration. The firmware remains unchanged.
+**Initial report date:** November 20, 2026. **Evidence:** measurements and seven photographs supplied by the student. These initial dimensions are not independently measured water geometry. The later [November 21 references](../tests/results/2026-11-21-water-calibration.md) were withdrawn for reuse on November 24 after an inclined setup was reported. New distances are pending; see the [current calibration procedure](calibration.md) and [replacement record](../tests/results/2026-11-24-recalibration.md). Keep the chosen 2000 ml usable limit, but do not reuse any of the earlier distance constants without remeasurement on the level setup.
 
 ## Selected container and reported dimensions
 
@@ -28,7 +28,7 @@ For comparison only, an ideal straight cylinder with an **internal** diameter of
 
 The 1.1 cm difference between 23 cm and 21.9 cm is not automatically a sensor error. Potential explanations include the transducer face sitting below the rim, an external base included in the ruler measurement, a different reflecting surface, or measurement error. No cause has been verified; do not add a 1.1 cm correction in software.
 
-## Sensor clearance and usable maximum
+## Initial mounting proposal — superseded by the fixed-mount report
 
 The 2500 ml marking is a **candidate** upper operating level. It is not yet the calibrated usable capacity or a measured full-distance reference.
 
@@ -38,7 +38,7 @@ Use a fixed mount that leaves approximately **5 cm or more of actual clearance**
 
 Changing the mount invalidates the preliminary 21.9 cm reference. Collect fresh readings after fixing the mount.
 
-## Selected calibration approach
+## Initial data-collection plan — historical
 
 Build a table of **known added water volume versus measured sensor distance**. This avoids assuming the lower feature is a wetted cone or that height percentage equals volume percentage. Later, explain and implement piecewise linear interpolation between measured points; this will still be an approximation that needs validation.
 

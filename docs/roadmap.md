@@ -1,13 +1,13 @@
 # Development roadmap
 
-**Active stage: 2 — container calibration.** Stages 0 and 1 are complete based on the user's functional test reports. Quantitative sensor accuracy and stability have not been established; see the recorded limitations in the [sensor test record](../tests/results/2026-11-20-sensor-distance.md). Each program's purpose, connections, and important parts will be explained before implementation.
+**Active stage: 3 — Wi-Fi preparation.** Stages 0–2 are accepted based on the student's functional test reports; see the [volume acceptance record](../tests/results/2026-11-24-volume-validation.md). Quantitative physical accuracy remains to be documented. Each program's purpose, connections, and important parts will be explained before implementation.
 
 | Stage | Work | Evidence needed to move forward | Status |
 | --- | --- | --- | --- |
 | 0 — Preparation | Review tools, identify the board, and organize the repository. | Working upload path and repeated board-check serial output, reported by the user. | Complete; see the [test record](../tests/results/2026-11-20-board-check.md). |
 | 1 — Sensor and ESP32 | Review pins and voltage divider; display distances in the serial monitor. | Functional distance response compared with a ruler. Preserve numeric series and error cases when available. | Complete based on the user's report; quantitative characterization remains to be recorded. |
-| 2 — Volume | Select a container, calibrate empty/full distances, validate, filter, and convert to liters. | Comparison with known quantities, with geometry and error documented. | In progress: identify the container and collect calibration references. See the [calibration guide](calibration.md). |
-| 3 — Connection | Connect to Wi-Fi and recover from disconnections. | Test with network loss and recovery. | Pending. |
+| 2 — Volume | Select a container, calibrate empty/full distances, validate, filter, and convert to liters. | Functional volume check; retain numerical accuracy data when available. | Accepted based on the student's report of successful revised output; quantitative error data not supplied. |
+| 3 — Connection | Connect to Wi-Fi and recover from disconnections. | Test with network loss and recovery. | Preparing network configuration after the student's manual Stage 2 commit. |
 | 4 — Cloud | Select storage, authorize uploads, and preserve history. | Actual records and handling of communication errors. | Pending. |
 | 5 — Dashboard | Display indicators, history, latest measurement, and alerts. | Interface using actual data, including handling of stale or missing data. | Pending. |
 | 6 — Testing | Test the complete system, fix issues, and prepare the presentation. | Reproducible procedure and results with known limitations. | Pending. |

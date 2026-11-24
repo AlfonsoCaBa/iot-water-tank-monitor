@@ -7,7 +7,7 @@
 | ESP32 board | 1 | Available; photograph indicates a classic ESP32 development board with USB-C. Exact manufacturer unconfirmed. Processing and Wi-Fi. |
 | HC-SR04 | 1 | Available; confirm the VCC, TRIG, ECHO, and GND labels. |
 | Windows computer | 1 | Available. Programming and viewing the dashboard. |
-| Container | 1 | Selected; transparent plastic container with molded markings through 2500 ml and a shaped lower base. Approximate measurements and photographs recorded; usable capacity not calibrated. |
+| Container | 1 | Selected; transparent container marked through 2500 ml. Student-selected usable limit: 2000 ml. New level-surface water references are required after the earlier setup was reported inclined. |
 
 ## Board observations — November 20, 2026
 
@@ -33,7 +33,7 @@ Use 1/4 W resistors, preferably with 1% tolerance. Borrowing a multimeter from t
 
 The student selected the available transparent plastic container rather than the earlier beaker shopping suggestion. Reported dimensions include a 23 cm total height, 12.6 cm top diameter, 9.2 cm lower-feature diameter, and a 2500 ml mark 3.4 cm below the rim. Internal water geometry cannot be established from these measurements alone. See the [measurement and photograph record](container-measurements.md).
 
-No replacement container is currently required. Proceed with a fixed sensor mount and a calibration table built from known water volumes. The molded 2500 ml mark is a candidate maximum, subject to sensor clearance and actual volume measurements.
+No replacement container is currently required. Keep the chosen **2000 ml** usable maximum. The earlier 3.3 cm full-level reading and other water references must be remeasured on a level, stable setup; see the [calibration guide](calibration.md). The molded 2500 ml mark is not the firmware's full endpoint. Fix the sensor before collecting all replacement series and do not move it between them.
 
 ## Earlier shopping reference
 
@@ -57,4 +57,4 @@ The kit's HC-SR04 must be kept dry, without submerging it or exposing it to spla
 
 - Exact board manufacturer/module part number, flash capacity, and availability of a suitable sensor power pin. The USB-C connector has been identified from the photograph.
 - Materials already included in the kit and access to a laboratory multimeter.
-- Selected container's usable capacity, fixed-mount empty/full references, and known-volume calibration curve. Initial dimensions and photographs are recorded, but their internal/external baselines are not fully established.
+- Independent volume-reference method, replacement raw series on the level setup, and later validation errors for the selected 2000 ml usable range. The earlier water references remain historical observations only.
