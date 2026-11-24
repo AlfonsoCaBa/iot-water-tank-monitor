@@ -12,15 +12,11 @@ Initial record: November 18, 2026. A proposal is not a verified implementation.
 
 ## 003 — HTTPS and managed storage
 
-**Status: proposed for Stage 4.** The initial simple option is **ThingSpeak**: it stores measurements in channels and provides an API for writing and retrieving data. This lets us focus on the complete data flow. [Official documentation](https://www.mathworks.com/help/thingspeak/users.html).
-
-ThingSpeak stores data, but using it does not involve designing our own SQL tables. If the course requires modeling a relational database, we will evaluate **Supabase with PostgreSQL**, including device authorization and query access control. This alternative has not been selected or configured. [Supabase database documentation](https://supabase.com/docs/guides/database/overview).
-
-Before finalizing the decision, we will review the instructor's requirements, JavaScript access, permissions, current limits, and service terms. There is no need to create an account yet.
+**Status: Firebase selected by the student on November 24, 2026; live verification pending.** Use **Firebase Realtime Database** for a JSON tree containing the latest sample and timestamped history. A dedicated Email/Password account obtains expiring ID tokens; rules restrict reads and validated writes to its UID. The ESP32 uses HTTPS REST and JSON support already present in core 4.0.0, without another Firebase library. See the [setup and data format](cloud.md) and [Firebase REST documentation](https://firebase.google.com/docs/database/rest/start).
 
 ## 004 — Container and conversion to liters
 
-**Status: processing implementation retained; replacement measurements required.** Keep the **2000 ml usable maximum** and interpolation approach, but withdraw the earlier distance references after the student reported an inclined setup on November 24. Collect raw series on a level setup first, then update the program and perform physical volume validation. The volume sketch's readiness flag is false until that update. Height and volume percentages remain distinct; the molded scale alone is not independent accuracy evidence. See the [calibration guide](calibration.md) and [container history](container-measurements.md).
+**Status: updated calibration accepted based on the student's report.** Use nine distance/volume anchors, **20.56 cm at empty**, **2.98 cm at 2 L**, and piecewise interpolation. Height and volume percentages remain distinct. Earlier inclined-setup references are historical; the student's later report does not establish a numerical accuracy bound. See the [current calibration](calibration.md) and [container history](container-measurements.md).
 
 ## 005 — Learning and progress control
 

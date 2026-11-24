@@ -18,6 +18,10 @@ g++ -std=c++11 -Wall -Wextra -Werror -pedantic "tests/tank_processing_test.cpp" 
 
 If compilation fails, stop before running the executable so an older build is not mistaken for a new result. The expected successful output is `All tank-processing tests passed.` Build files are ignored by Git. No test framework or extra library is needed.
 
+## Computer-side cloud protocol tests
+
+`cloud_protocol_test.cpp` exercises the actual Firebase response, URL, freshness, and upload-spacing helpers, including counter rollover. Compile it with the same options as above, replacing the source and executable names with `cloud_protocol_test`. These tests do not run Firebase rules or establish a successful ESP32 compilation or live write. Stage 3 connection/recovery was accepted from the student's report; Stage 4 live checks remain pending.
+
 ## Physical checks by stage
 
 | Stage | Check |

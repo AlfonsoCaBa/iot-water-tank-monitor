@@ -2,7 +2,7 @@
 
 University IoT project that estimates the water available in a small container representing a water storage tank, stores measurements in the cloud, and displays them on a web dashboard.
 
-**Status: Stages 0–2 accepted; Stage 3 — Wi-Fi preparation.** The student reported successful calibrated volume output; see the [acceptance record](tests/results/2026-11-24-volume-validation.md). The current firmware uses nine reference points and a **2000 ml usable maximum**. No numerical physical accuracy result is claimed. Keep the [active calibration](docs/calibration.md) fixed while adding network connectivity. Wi-Fi code, cloud storage, and the dashboard have not been implemented yet.
+**Status: Stages 0–3 accepted; Stage 4 — Firebase setup and live storage verification pending.** The student reported hotspot connection and recovery while measurements continued. The firmware includes a Firebase Realtime Database HTTPS uploader with authentication, latest readings, and history. The nine-point calibration and **2000 ml usable maximum** are retained. Follow the [cloud guide](docs/cloud.md) to configure the project, device account, rules, and local credentials. Arduino compilation, live cloud results, and the dashboard remain pending.
 
 ## How it will work
 
@@ -23,7 +23,7 @@ Height percentage and volume percentage only match when the container has a cons
 - **Firmware:** C++ with Arduino IDE 2 and Espressif's ESP32 core.
 - **Dashboard:** HTML, CSS, and JavaScript, edited in VS Code.
 - **Version control:** Git and GitHub; the student creates commits.
-- **Proposed cloud platform:** ThingSpeak for measurement history storage and its web API. The choice will be finalized in Stage 4 based on the course's database requirements. See the [technical decisions](docs/decisions.md).
+- **Cloud platform:** Firebase Realtime Database, selected by the student, with Firebase Authentication and HTTPS REST. It stores a JSON tree rather than SQL tables. See the [technical decisions](docs/decisions.md).
 
 ## Repository structure
 
@@ -39,7 +39,12 @@ iot-water-tank-monitor/
 │   │   └── calibration_reader.ino
 │   └── water_tank_monitor/
 │       ├── water_tank_monitor.ino
-│       └── tank_processing.h
+│       ├── tank_processing.h
+│       ├── cloud_upload.h
+│       ├── cloud_protocol.h
+│       └── secrets.example.h
+├── firebase/
+│   └── database.rules.json
 ├── dashboard/
 │   └── README.md
 ├── docs/
@@ -50,11 +55,14 @@ iot-water-tank-monitor/
 │   ├── container-measurements.md
 │   ├── images/container/
 │   ├── architecture.md
+│   ├── cloud.md
+│   ├── wifi.md
 │   ├── decisions.md
 │   └── roadmap.md
 └── tests/
     ├── README.md
     ├── tank_processing_test.cpp
+    ├── cloud_protocol_test.cpp
     └── results/
 ```
 

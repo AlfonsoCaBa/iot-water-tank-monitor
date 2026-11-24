@@ -1,0 +1,72 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "devices": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid && $uid === 'BgP6IonkEQdaC9bgR7n9G1mSCwW2'",
+        "latest": {
+          ".write": "auth != null && auth.uid === $uid && $uid === 'BgP6IonkEQdaC9bgR7n9G1mSCwW2' && newData.exists()",
+          ".validate": "newData.hasChildren(['distanceCm', 'liters', 'fillPercent', 'levelPercent', 'endpointClamped', 'measuredAt', 'receivedAt'])",
+          "distanceCm": {
+            ".validate": "newData.isNumber() && newData.val() >= 2 && newData.val() <= 400"
+          },
+          "liters": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 2"
+          },
+          "fillPercent": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 100"
+          },
+          "levelPercent": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 100"
+          },
+          "endpointClamped": {
+            ".validate": "newData.isBoolean()"
+          },
+          "measuredAt": {
+            ".validate": "newData.isNumber() && newData.val() >= 1704067200000"
+          },
+          "receivedAt": {
+            ".validate": "newData.isNumber() && newData.val() === now"
+          },
+          "$other": {
+            ".validate": false
+          }
+        },
+        "history": {
+          ".indexOn": [
+            "measuredAt"
+          ],
+          "$entry": {
+            ".write": "auth != null && auth.uid === $uid && $uid === 'BgP6IonkEQdaC9bgR7n9G1mSCwW2' && !data.exists() && newData.exists()",
+            ".validate": "newData.hasChildren(['distanceCm', 'liters', 'fillPercent', 'levelPercent', 'endpointClamped', 'measuredAt', 'receivedAt'])",
+            "distanceCm": {
+              ".validate": "newData.isNumber() && newData.val() >= 2 && newData.val() <= 400"
+            },
+            "liters": {
+              ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 2"
+            },
+            "fillPercent": {
+              ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 100"
+            },
+            "levelPercent": {
+              ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 100"
+            },
+            "endpointClamped": {
+              ".validate": "newData.isBoolean()"
+            },
+            "measuredAt": {
+              ".validate": "newData.isNumber() && newData.val() >= 1704067200000"
+            },
+            "receivedAt": {
+              ".validate": "newData.isNumber() && newData.val() === now"
+            },
+            "$other": {
+              ".validate": false
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,14 +1,14 @@
 # Development roadmap
 
-**Active stage: 3 — Wi-Fi preparation.** Stages 0–2 are accepted based on the student's functional test reports; see the [volume acceptance record](../tests/results/2026-11-24-volume-validation.md). Quantitative physical accuracy remains to be documented. Each program's purpose, connections, and important parts will be explained before implementation.
+**Active stage: 4 — cloud storage.** Stages 0–3 are accepted based on the student's functional reports, including hotspot reconnection while measurement output continued. The cloud uploader is prepared and live storage checks are pending. Quantitative physical accuracy remains to be documented.
 
 | Stage | Work | Evidence needed to move forward | Status |
 | --- | --- | --- | --- |
 | 0 — Preparation | Review tools, identify the board, and organize the repository. | Working upload path and repeated board-check serial output, reported by the user. | Complete; see the [test record](../tests/results/2026-11-20-board-check.md). |
 | 1 — Sensor and ESP32 | Review pins and voltage divider; display distances in the serial monitor. | Functional distance response compared with a ruler. Preserve numeric series and error cases when available. | Complete based on the user's report; quantitative characterization remains to be recorded. |
 | 2 — Volume | Select a container, calibrate empty/full distances, validate, filter, and convert to liters. | Functional volume check; retain numerical accuracy data when available. | Accepted based on the student's report of successful revised output; quantitative error data not supplied. |
-| 3 — Connection | Connect to Wi-Fi and recover from disconnections. | Test with network loss and recovery. | Preparing network configuration after the student's manual Stage 2 commit. |
-| 4 — Cloud | Select storage, authorize uploads, and preserve history. | Actual records and handling of communication errors. | Pending. |
+| 3 — Connection | Connect to Wi-Fi and recover from disconnections. | Test with network loss and recovery. | Accepted: the student reported connection and recovery without interrupting measurements. |
+| 4 — Cloud | Select storage, authorize uploads, and preserve history. | Actual records and handling of communication errors. | Firebase Realtime Database selected; uploader and rules prepared. Configure the project and device account, compile/upload, and check live records using the [cloud guide](cloud.md). |
 | 5 — Dashboard | Display indicators, history, latest measurement, and alerts. | Interface using actual data, including handling of stale or missing data. | Pending. |
 | 6 — Testing | Test the complete system, fix issues, and prepare the presentation. | Reproducible procedure and results with known limitations. | Pending. |
 

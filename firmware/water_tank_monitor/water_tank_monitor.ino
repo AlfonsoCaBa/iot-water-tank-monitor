@@ -1,16 +1,70 @@
-// Stage 2: calibrated water level and volume. No network code yet.
+// Stage 4: calibrated measurements, Wi-Fi, and periodic cloud storage.
+#include <WiFi.h>
 #include "tank_processing.h"
+#include "cloud_upload.h"
+
+#if __has_include("secrets.h")
+#include "secrets.h"
+#else
+#include "secrets.example.h"
+#endif
 
 const int TRIG_PIN = 18;
 const int ECHO_PIN = 19;
 const unsigned long ECHO_TIMEOUT_US = 30000;
 const float SOUND_CM_PER_US = 0.0343f;
 const int SAMPLE_INTERVAL_MS = 500;
+const unsigned long WIFI_RETRY_MS = 15000;
 // New references were collected on a level surface with the sensor fixed.
 const bool CALIBRATION_MEASUREMENTS_CURRENT = true;
 
 tank::MedianFilter distanceFilter;
 bool calibrationReady = false;
+bool wifiConfigured = false;
+bool wifiWasConnected = false;
+unsigned long lastWifiAttemptMs = 0;
+
+void startWiFi() {
+  if (WIFI_SSID[0] == '\0' || WIFI_PASSWORD[0] == '\0') {
+    Serial.println("Wi-Fi not configured: fill in secrets.h; measurements continue");
+    return;
+  }
+
+  wifiConfigured = true;
+  WiFi.mode(WIFI_STA);
+  // Own the retry timing in loop(), rather than combining two retry mechanisms.
+  WiFi.setAutoReconnect(false);
+  Serial.println("Wi-Fi: connecting to hotspot; measurements continue");
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+  lastWifiAttemptMs = millis();
+}
+
+void maintainWiFi() {
+  if (!wifiConfigured) return;
+
+  const bool connected = WiFi.status() == WL_CONNECTED;
+  if (connected) {
+    if (!wifiWasConnected) {
+      Serial.print("Wi-Fi connected | IP: ");
+      Serial.println(WiFi.localIP());
+    }
+    wifiWasConnected = true;
+    return;
+  }
+
+  if (wifiWasConnected) {
+    Serial.println("Wi-Fi disconnected; measurements continue");
+  }
+  wifiWasConnected = false;
+
+  // Unsigned subtraction also works across the millis() counter rollover.
+  if (millis() - lastWifiAttemptMs >= WIFI_RETRY_MS) {
+    Serial.println("Wi-Fi: retrying hotspot connection");
+    WiFi.disconnect();
+    WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+    lastWifiAttemptMs = millis();
+  }
+}
 
 void setup() {
   Serial.begin(115200);
@@ -29,10 +83,15 @@ void setup() {
   } else {
     Serial.println("ERROR: invalid calibration table; measurements disabled");
   }
+  startWiFi();
+  cloud::begin(FIREBASE_API_KEY, FIREBASE_DATABASE_URL,
+               FIREBASE_DEVICE_EMAIL, FIREBASE_DEVICE_PASSWORD);
 }
 
 void loop() {
+  maintainWiFi();
   if (!calibrationReady) {
+    cloud::invalidateReading();
     delay(SAMPLE_INTERVAL_MS);
     return;
   }
@@ -47,6 +106,7 @@ void loop() {
   const unsigned long echoTimeUs = pulseIn(ECHO_PIN, HIGH, ECHO_TIMEOUT_US);
 
   if (echoTimeUs == 0) {
+    cloud::invalidateReading();
     tank::resetFilter(distanceFilter);
     Serial.println("ERROR: no complete echo within 30 ms");
   } else {
@@ -54,12 +114,14 @@ void loop() {
     const float distanceCm = echoTimeUs * SOUND_CM_PER_US / 2.0f;
 
     if (!tank::distanceIsUsable(distanceCm)) {
+      cloud::invalidateReading();
       tank::resetFilter(distanceFilter);
       Serial.print("ERROR: distance outside usable calibration range | Raw (cm): ");
       Serial.println(distanceCm, 2);
     } else {
       float filteredCm;
       if (!tank::addMedianSample(distanceFilter, distanceCm, filteredCm)) {
+        cloud::invalidateReading();
         Serial.print("WARMUP: ");
         Serial.print(distanceFilter.count);
         Serial.print("/5 | Raw (cm): ");
@@ -67,21 +129,17 @@ void loop() {
       } else {
         const tank::TankReading reading = tank::calculateReading(filteredCm);
         if (!reading.valid) {
+          cloud::invalidateReading();
           tank::resetFilter(distanceFilter);
           Serial.println("ERROR: calibration calculation failed");
         } else {
-          Serial.print("Raw (cm): ");
-          Serial.print(distanceCm, 2);
-          Serial.print(" | Filtered (cm): ");
-          Serial.print(filteredCm, 2);
-          Serial.print(" | Level (% height): ");
-          Serial.print(reading.levelPercent, 1);
-          Serial.print(" | Volume (L): ");
-          Serial.print(reading.liters, 3);
-          Serial.print(" | Fill (% volume): ");
-          Serial.print(reading.fillPercent, 1);
-          if (reading.endpointClamped) Serial.print(" | Boundary: CLAMPED");
-          Serial.println();
+          cloud::publishReading(filteredCm, reading);
+          // One formatted write keeps this line together with cloud-task logs.
+          Serial.printf("Raw (cm): %.2f | Filtered (cm): %.2f | Level (%% height): %.1f"
+                        " | Volume (L): %.3f | Fill (%% volume): %.1f%s\n",
+                        distanceCm, filteredCm, reading.levelPercent,
+                        reading.liters, reading.fillPercent,
+                        reading.endpointClamped ? " | Boundary: CLAMPED" : "");
         }
       }
     }
